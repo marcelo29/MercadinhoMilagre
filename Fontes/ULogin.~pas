@@ -53,6 +53,7 @@ end;
 procedure TfrmLogin.btnConfirmarClick(Sender: TObject);
 begin
   // efetua o login
+  ShowMessage();
 end;
 
 end.
