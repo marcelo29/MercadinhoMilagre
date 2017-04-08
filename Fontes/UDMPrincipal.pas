@@ -27,8 +27,8 @@ procedure TdmPrincipal.DataModuleCreate(Sender: TObject);
 begin
   try
     sqlConnPrincipal.Connected := true;
-  except
-    ShowMessage('Erro ao conectar com o banco de dados');
+  except on E: Exception do
+      ShowMessage(E.Message);
   end;
 end;
 
@@ -36,8 +36,8 @@ procedure TdmPrincipal.DataModuleDestroy(Sender: TObject);
 begin
   try
     sqlConnPrincipal.Connected := False;
-  except
-    ShowMessage('Erro');
+  except on E: Exception do
+      ShowMessage(E.Message);
   end;
 end;
 

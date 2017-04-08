@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+  Dialogs, StdCtrls, FMTBcd, DB, SqlExpr;
 
 type
   TfrmLogin = class(TForm)
@@ -14,6 +14,9 @@ type
     Label2: TLabel;
     edtSenha: TEdit;
     btnCancelar: TButton;
+    qryLogin: TSQLQuery;
+    qryLoginPERFIL: TStringField;
+    qryLoginID: TIntegerField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
   private
@@ -28,7 +31,11 @@ type
 var
   frmLogin: TfrmLogin;
 
+
+
 implementation
+
+uses UDMPrincipal, UMenuPrincipal;
 
 {$R *.dfm}
 
@@ -51,9 +58,41 @@ begin
 end;
 
 procedure TfrmLogin.btnConfirmarClick(Sender: TObject);
+const
+  PERFIL_GERENTE = 0;
+  PERFIL_OPERADOR = 1;
 begin
   // efetua o login
-  ShowMessage();
+  if (Trim(edtUsuario.Text) <> EmptyStr) and (Trim(edtSenha.Text) <> EmptyStr) then
+  begin
+    try
+      qryLogin.ParamByName('LOGIN').AsString := LowerCase(Trim(edtUsuario.Text));
+      qryLogin.ParamByName('SENHA').AsString := LowerCase(Trim(edtSenha.Text));
+      try
+        qryLogin.Open;
+        if (qryLoginPERFIL.AsString <> EmptyStr) then
+        begin
+          if qryLoginPERFIL.AsString = 'Gerente' then
+            setIdPerfil(PERFIL_GERENTE)
+        else
+          setIdPerfil(PERFIL_OPERADOR);
+
+        if (frmMenuPrincipal = nil) then
+          frmMenuPrincipal := TfrmMenuPrincipal.Create(Self);
+        frmMenuPrincipal.ShowModal;
+      end
+    else
+      ShowMessage('Usuário ou senha inválidos.');
+    finally
+      qryLogin.Close;
+      FreeAndNil(frmMenuPrincipal);
+    end;
+    except on E: Exception do
+    ShowMessage(E.Message);
+end;
+end
+else
+  ShowMessage('Campos em branco, preencha os campos.');
 end;
 
 end.

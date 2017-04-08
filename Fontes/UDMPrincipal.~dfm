@@ -1,6 +1,7 @@
 object dmPrincipal: TdmPrincipal
   OldCreateOrder = False
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Left = 511
   Top = 280
   Height = 191

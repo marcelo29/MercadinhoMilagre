@@ -3,13 +3,15 @@ program MercadinhoMilagre;
 uses
   Forms,
   ULogin in 'ULogin.pas' {frmLogin},
-  UDMPrincipal in 'UDMPrincipal.pas' {DataModule1: TDataModule};
+  UDMPrincipal in 'UDMPrincipal.pas' {dmPrincipal: TDataModule},
+  UMenuPrincipal in 'UMenuPrincipal.pas' {frmMenuPrincipal};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(TdmPrincipal, dmPrincipal);
+  Application.CreateForm(TfrmMenuPrincipal, frmMenuPrincipal);
   Application.Run;
 end.

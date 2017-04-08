@@ -34,6 +34,7 @@ object frmLogin: TfrmLogin
     Width = 121
     Height = 21
     TabOrder = 0
+    Text = 'manuel'
   end
   object btnConfirmar: TButton
     Left = 23
@@ -41,7 +42,7 @@ object frmLogin: TfrmLogin
     Width = 75
     Height = 25
     Caption = 'Confirmar'
-    TabOrder = 1
+    TabOrder = 2
     OnClick = btnConfirmarClick
   end
   object edtSenha: TEdit
@@ -50,7 +51,8 @@ object frmLogin: TfrmLogin
     Width = 121
     Height = 21
     PasswordChar = '*'
-    TabOrder = 2
+    TabOrder = 1
+    Text = 'real1270'
   end
   object btnCancelar: TButton
     Left = 116
@@ -60,5 +62,34 @@ object frmLogin: TfrmLogin
     Caption = 'Cancelar'
     TabOrder = 3
     OnClick = btnCancelarClick
+  end
+  object qryLogin: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'LOGIN'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'SENHA'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT P.ID, P.PERFIL FROM PERMISSAO P'
+      'INNER JOIN USUARIO U ON P.ID = U.ID_PERFIL'
+      'AND U.LOGIN =:LOGIN AND U.SENHA =:SENHA')
+    SQLConnection = dmPrincipal.sqlConnPrincipal
+    Left = 120
+    Top = 137
+    object qryLoginPERFIL: TStringField
+      FieldName = 'PERFIL'
+      Required = True
+    end
+    object qryLoginID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
   end
 end

@@ -3,7 +3,8 @@ program MercadinhoMilagre;
 uses
   Forms,
   ULogin in 'ULogin.pas' {frmLogin},
-  UDMPrincipal in 'UDMPrincipal.pas' {dmPrincipal: TDataModule};
+  UDMPrincipal in 'UDMPrincipal.pas' {dmPrincipal: TDataModule},
+  UMenuPrincipal in 'UMenuPrincipal.pas' {frmMenuPrincipal};
 
 {$R *.res}
 
