@@ -1,0 +1,26 @@
+unit UControleUsuario;
+
+interface
+
+uses UUsuario, Sysutils;
+
+type
+  TControleUsuario = class
+    function efetuarLogin(const usuario: TUsuario): Boolean;
+  end;
+
+implementation
+
+{ TControleUsuario }
+
+function TControleUsuario.efetuarLogin(const usuario: TUsuario): Boolean;
+begin
+  usuario.login := LowerCase(Trim(usuario.login));
+  usuario.senha := LowerCase(Trim(usuario.senha));
+
+  if (usuario.login <> EmptyStr) and (usuario.senha <> EmptyStr) then
+    // chama modelo
+end;
+
+end.
+
